@@ -18,6 +18,8 @@ current_direction = 0
 
 current_position = [0, 0]
 
+places_and_stuff = set()
+
 for command in data.split(', '):
     if command[0] == 'L':
         current_direction = (current_direction - 1) % 4
@@ -29,8 +31,12 @@ for command in data.split(', '):
 
     multiplier = int(command[1:])
 
-    current_position = [current_position[0] + direction_coefficients[current_direction][0] * multiplier,
-                        current_position[1] + direction_coefficients[current_direction][1] * multiplier]
+    for steppy_step in range(multiplier):
+        current_position = [current_position[0] + direction_coefficients[current_direction][0],
+                            current_position[1] + direction_coefficients[current_direction][1]]
 
-print("""You're at x: {1}, y: {2}
-Your distance is {0}.""".format(sum([abs(coordinate) for coordinate in current_position]), *current_position))
+        if tuple(current_position) in places_and_stuff:
+            print("What? You've been here before!\nYou're at x: {1}, y: {2}\nYour distance from the start is {0}.""".format(sum([abs(coordinate) for coordinate in current_position]), *current_position))
+            exit(0)
+
+        places_and_stuff.add(tuple(current_position))
