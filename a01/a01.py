@@ -21,8 +21,11 @@ current_position = [0, 0]
 for command in data.split(', '):
     if command[0] == 'L':
         current_direction = (current_direction - 1) % 4
-    else:
+    elif command[0] == 'R':
         current_direction = (current_direction + 1) % 4
+    else:
+        print("We're not playing the same game, you and I.")
+        exit(1)
 
     multiplier = int(command[1:])
 
