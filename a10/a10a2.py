@@ -16,11 +16,11 @@ with open('input.txt', 'r') as input_file:
 def do_command(giver, lowWho, lowID, highWho, highID):
     for who, id, func in [[lowWho, lowID, min], [highWho, highID, max]]:
         if who == 'output':
-            outputs[id] += min(robots[giver])
-            robots[giver].remove(min(robots[giver]))
+            outputs[id] += func(robots[giver])
+            robots[giver].remove(func(robots[giver]))
         else:
-            robots[id].append(min(robots[giver]))
-            robots[giver].remove(min(robots[giver]))
+            robots[id].append(func(robots[giver]))
+            robots[giver].remove(func(robots[giver]))
 
 while commands:
     for command in commands:
