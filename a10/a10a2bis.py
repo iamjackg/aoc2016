@@ -3,22 +3,14 @@ from collections import defaultdict
 robots = defaultdict(list)
 outputs = defaultdict(int)
 
+commands = []
+
 with open('input.txt', 'r') as input_file:
     for line in input_file:
         data = line.split()
         if 'value' in line:
             robots[data[-1]].append(int(data[1]))
-
-print robots
-
-
-commands = []
-
-
-with open('input.txt', 'r') as input_file:
-    for line in input_file:
-        data = line.split()
-        if 'gives' in line:
+        else:
             commands.append([data[1], data[5], data[6], data[10], data[11]])
 
 while commands:
