@@ -1,7 +1,7 @@
 import re
 from copy import deepcopy
 from collections import defaultdict
-from itertools import permutations
+from itertools import combinations
 
 floors = [[], [], [], []]
 elevator_position = 0
@@ -56,7 +56,7 @@ def process_floor(position, func_floors, previous_floors, level=0):
         return True
     # bring upstairs
     if position < 3:
-        for perm in permutations(func_floors[position], 2):
+        for perm in combinations(func_floors[position], 2):
             # print perm, 'being analyzed'
             copy_floors = deepcopy(func_floors)
             if safe_floor(func_floors[position + 1] + list(perm)):
@@ -94,7 +94,7 @@ def process_floor(position, func_floors, previous_floors, level=0):
                         # print perm, 'going down'
                         if process_floor(position - 1, copy_floors, func_floors, level + 1):
                             return True
-        for perm in permutations(func_floors[position], 2):
+        for perm in combinations(func_floors[position], 2):
             # print perm, 'being analyzed'
             copy_floors = deepcopy(func_floors)
             if safe_floor(func_floors[position - 1] + list(perm)):
